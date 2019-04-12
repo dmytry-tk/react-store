@@ -57,4 +57,7 @@ const mapDispatchToProps = {
 export default compose(
     withBookstoreService(),
     connect(mapStateToProps, mapDispatchToProps)
-)(BookList);//урок 12611111
+)(BookList);//урок 1263453
+
+
+//ветка 2 была создана
