@@ -58,3 +58,6 @@ export default compose(
     withBookstoreService(),
     connect(mapStateToProps, mapDispatchToProps)
 )(BookList);//урок 1263453
+
+
+//ветка 2 была создана
