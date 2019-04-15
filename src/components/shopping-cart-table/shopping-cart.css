@@ -1,0 +1,17 @@
+table {
+  width: 90%;
+  margin-left: 5%;
+  border-collapse: collapse;
+}
+table tr th, table tr td {
+  border: 1px solid black;
+  padding: 5px 10px;
+}
+table tr th div, table tr td div {
+  display: inline-block;
+  margin-right: 10px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=shopping-cart.css.map */
