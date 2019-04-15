@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":[],"names":[],"mappings":"","file":"book-list-item.css"}
+{"version":3,"sourceRoot":"","sources":["book-list-item.sass"],"names":[],"mappings":"AAAA;EACI;EACA;;AACA;EACI;;AACA;EACI;;AACR;EACI;;AACA;EACI;EACA","file":"book-list-item.css"}

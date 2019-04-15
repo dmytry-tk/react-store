@@ -1,3 +1,19 @@
-
+.book-list-item {
+  display: flex;
+  padding: 20px;
+}
+.book-list-item .img-item {
+  margin: 20px;
+}
+.book-list-item .img-item img {
+  width: 200px;
+}
+.book-list-item .desc-item {
+  margin: 20px;
+}
+.book-list-item .desc-item span {
+  display: block;
+  line-height: 2;
+}
 
 /*# sourceMappingURL=book-list-item.css.map */
