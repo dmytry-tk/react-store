@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import './book-list-item.sass'
 
 const BookListItem = ({ book }) => {
@@ -6,7 +6,7 @@ const BookListItem = ({ book }) => {
     return(
         <div className = 'book-list-item'>
             <div className="img-item">
-                <a href="#"><img src={img} alt=""/></a>
+                <span><img src={img} alt=""/></span>
             </div>
             <div className="desc-item">
                 <span><strong>title:</strong> {title}</span>

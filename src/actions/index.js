@@ -1,18 +1,31 @@
 
 const booksLoaded = (newBooks) => {
     return {
-        type: 'BOOKS_LOADED',
+        type: 'FETCH_BOOKS_LOADED',
         payload: newBooks
     };
 };
 
 const booksRequested = () => {
     return{
-        type: 'BOOKS_REQUESTED'
+        type: 'FETCH_BOOKS_REQUESTED'
     }
 }
 
+const booksError = (error) => {
+    return{
+        type: 'FETCH_BOOKS_ERROR',
+        error: error
+    }
+}
+
+const fetchBooks = (bookstoreService, dispatch) => () => {//внутренняя функция предназначена для компонента, внешняя для работа mapDispatch
+    dispatch(booksRequested());
+    bookstoreService.getBooks()
+        .then((data) => dispatch(booksLoaded(data)))
+        .catch((error) => dispatch(booksError(error)))
+}
+
 export {
-  booksLoaded,
-  booksRequested
+  fetchBooks,
 };

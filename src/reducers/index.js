@@ -2,21 +2,28 @@
 const initialState = {
     books: [],
     loading: true,
+    error: null,
 }
 
 const reducer = (state = initialState, action) => {
 
     switch (action.type) {
-        case 'BOOKS_LOADED':
+        case 'FETCH_BOOKS_LOADED':
             return {
                 books: action.payload,
                 loading: false,
+                error: null,
             }
 
-        case 'BOOKS_REQUESTED':
+        case 'FETCH_BOOKS_REQUESTED':
             return {
                 books: [],
                 loading: true,
+                error: null,
+            }
+        case 'FETCH_BOOKS_ERROR':
+            return {
+                error: action.error,
             }
     }
     return state;

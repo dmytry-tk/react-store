@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './header.sass'
-import {Link, NavLink} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 const Header =() => {
     return(

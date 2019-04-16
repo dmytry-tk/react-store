@@ -2,20 +2,36 @@ import React, { Component } from 'react';
 import BookListItem from "../book-list-item";
 import { connect } from "react-redux";
 import { withBookstoreService } from '../hoc'
-import { booksLoaded, booksRequested } from "../../actions";
+import {fetchBooks} from "../../actions";
 import { compose } from "redux";
 import './book-list.sass'
 import Spinner from "../spinner";
+import ErrorIndicator from "../error-indicator";
 
-class BookList extends Component {
+const BookList = ({books}) => {
+    return(
+        <ul>
+            {
+                books.map((book) => {
+                    return (
+                        <li key={book.id}><BookListItem book={book} /></li>
+                    )
+                })
+            }
+        </ul>
+    )
+}
+
+class BookListContainer extends Component {
 
     componentDidMount() {
-        const { bookstoreService, booksLoaded, booksRequested } = this.props
-        booksRequested();
-        bookstoreService.getBooks()
-            .then((data) => {
-                booksLoaded(data)
-            });
+        this.props.fetchBooks()
+        // const {
+        //     bookstoreService,
+        //     booksLoaded,
+        //     booksRequested,
+        //     booksError } = this.props
+        //
         // // 1. receive data
         // const { bookstoreService } = this.props
         // const data = bookstoreService.getBooks();
@@ -24,26 +40,21 @@ class BookList extends Component {
     }
 
     render() {
-        const { books, loading } = this.props;
+        const { books, loading, error } = this.props;
 
-        if(loading) {
+        if (loading) {
             return <Spinner />;
         }
-        return(
-            <ul>
-                {
-                    books.map((book) => {
-                        return (
-                            <li key={book.id}><BookListItem book={book} /></li>
-                        )
-                    })
-                }
-            </ul>
-        )
+
+        if (error) {
+            return <ErrorIndicator />
+        }
+
+        return <BookList books = {books} />
     }
 }
-const mapStateToProps = ({ books, loading }) => {
-        return { books, loading };
+const mapStateToProps = ({ books, loading, error }) => {
+        return { books, loading, error };
 };
 
 // const mapDispatchToProps = (dispatch) => {
@@ -57,9 +68,30 @@ const mapStateToProps = ({ books, loading }) => {
 //     }
 // };
 
-const mapDispatchToProps = {
-    booksLoaded,
-    booksRequested
+// const mapDispatchToProps = {
+//     booksLoaded,
+//     booksRequested,
+//     booksError
+// };
+
+// const mapDispatchToProps = (dispatch, ownProps) => { //ownProps - свойства, которые перешли от компонента
+//     const { bookstoreService } = ownProps;
+//     return {
+//         fetchBooks: () => {
+//             dispatch(booksRequested());
+//             bookstoreService.getBooks()
+//                 .then((data) => dispatch(booksLoaded(data)))
+//                 .catch((error) => dispatch(booksError(error)))
+//         }
+//     }
+// };
+
+
+const mapDispatchToProps = (dispatch, ownProps) => { //ownProps - свойства, которые перешли от компонента
+    const { bookstoreService } = ownProps;
+    return {
+        fetchBooks: fetchBooks(bookstoreService, dispatch)
+    }
 };
 
 // export default withBookstoreService()(
@@ -69,7 +101,7 @@ const mapDispatchToProps = {
 export default compose(
     withBookstoreService(),
     connect(mapStateToProps, mapDispatchToProps)
-)(BookList);//урок 1263453
+)(BookListContainer);//урок 1263453
 
 
 //ветка 2 была создана
