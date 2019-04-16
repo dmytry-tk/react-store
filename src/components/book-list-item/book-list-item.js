@@ -1,7 +1,7 @@
 import React from 'react';
 import './book-list-item.sass'
 
-const BookListItem = ({ book }) => {
+const BookListItem = ({ book, addBookToCart }) => {
     const { title, author, price, img } = book;
     return(
         <div className = 'book-list-item'>
@@ -12,7 +12,8 @@ const BookListItem = ({ book }) => {
                 <span><strong>title:</strong> {title}</span>
                 <span><strong>author:</strong> {author}</span>
                 <span><strong>price:</strong> {price}</span>
-                <div className="button">Add to cart</div>
+                <div className="button"
+                    onClick={() => addBookToCart()}>Add to cart</div>
             </div>
         </div>
     )

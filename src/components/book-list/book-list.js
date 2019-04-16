@@ -2,19 +2,23 @@ import React, { Component } from 'react';
 import BookListItem from "../book-list-item";
 import { connect } from "react-redux";
 import { withBookstoreService } from '../hoc'
-import {fetchBooks} from "../../actions";
+import {fetchBooks, bookAddedToCart } from "../../actions";
 import { compose } from "redux";
 import './book-list.sass'
 import Spinner from "../spinner";
 import ErrorIndicator from "../error-indicator";
 
-const BookList = ({books}) => {
+const BookList = ({books, addBookToCart}) => {
     return(
         <ul>
             {
                 books.map((book) => {
                     return (
-                        <li key={book.id}><BookListItem book={book} /></li>
+                        <li key={book.id}>
+                            <BookListItem
+                                book={book}
+                                addBookToCart={() => addBookToCart(book.id)}/>
+                        </li>
                     )
                 })
             }
@@ -40,7 +44,7 @@ class BookListContainer extends Component {
     }
 
     render() {
-        const { books, loading, error } = this.props;
+        const { books, loading, error, addBookToCart } = this.props;
 
         if (loading) {
             return <Spinner />;
@@ -50,7 +54,9 @@ class BookListContainer extends Component {
             return <ErrorIndicator />
         }
 
-        return <BookList books = {books} />
+        return <BookList
+            books = {books}
+            addBookToCart={addBookToCart}/>
     }
 }
 const mapStateToProps = ({ books, loading, error }) => {
@@ -90,7 +96,10 @@ const mapStateToProps = ({ books, loading, error }) => {
 const mapDispatchToProps = (dispatch, ownProps) => { //ownProps - свойства, которые перешли от компонента
     const { bookstoreService } = ownProps;
     return {
-        fetchBooks: fetchBooks(bookstoreService, dispatch)
+        fetchBooks: fetchBooks(bookstoreService, dispatch),
+        addBookToCart: (id) => {
+            dispatch(bookAddedToCart(id))
+        }
     }
 };
 
