@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import './header.sass'
+import {Link, NavLink} from "react-router-dom";
 
 const Header =() => {
     return(
         <header>
-            <div className="title">Book Shop</div>
+            <Link to={'/'} className="title">Book Shop</Link>
             <div className="info">
-                <i className="fas fa-shopping-cart"></i>
+                <Link to={'/cart/'}><i className="fas fa-shopping-cart"></i></Link>
                 5
                 items
                 (250$)
