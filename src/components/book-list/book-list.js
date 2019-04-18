@@ -29,7 +29,8 @@ const BookList = ({books, addBookToCart}) => {
 class BookListContainer extends Component {
 
     componentDidMount() {
-        this.props.fetchBooks()
+        console.log("11111", this.props.fetchBooks())
+        // this.props.fetchBooks()
         // const {
         //     bookstoreService,
         //     booksLoaded,
@@ -59,7 +60,7 @@ class BookListContainer extends Component {
             addBookToCart={addBookToCart}/>
     }
 }
-const mapStateToProps = ({ books, loading, error }) => {
+const mapStateToProps = ({ bookList: { books, loading, error }}) => {
         return { books, loading, error };
 };
 

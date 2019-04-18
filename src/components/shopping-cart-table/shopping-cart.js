@@ -2,6 +2,12 @@ import React from 'react';
 import './shopping-cart.sass'
 import {connect} from "react-redux";
 
+import {
+    bookAddedToCart,
+    bookRemovedFromCart,
+    allBooksRemovedFromCart
+} from "../../actions";
+
 const ShoppingCart = ({ items, total, onIncrease, onDecrease, onDelete}) => {
     const renderRow = (item, idx) => {
         const { id, title, count, total } = item;
@@ -48,27 +54,33 @@ const ShoppingCart = ({ items, total, onIncrease, onDecrease, onDelete}) => {
 
 }
 
-const mapStateToProps = ({ cartItems, orderTotal }) => {
+const mapStateToProps = ({ shoppingCart: { cartItems, orderTotal }}) => {
     return{
         items: cartItems,
         total: orderTotal
     }
 }
 
-const mapDispatchToProps = () => {
-    return{
-        onIncrease: (id) => {
-            console.log(`Increase ${id}`)
-        },
+// const mapDispatchToProps = () => {
+//     return{
+//         onIncrease: (id) => {
+//             console.log(`Increase ${id}`)
+//         },
+//
+//         onDecrease: (id) => {
+//             console.log(`Decrease ${id}`)
+//         },
+//
+//         onDelete: (id) => {
+//             console.log(`Delete ${id}`)
+//         }
+//     }
+// }
 
-        onDecrease: (id) => {
-            console.log(`Decrease ${id}`)
-        },
-
-        onDelete: (id) => {
-            console.log(`Delete ${id}`)
-        }
-    }
+const mapDispatchToProps =  {
+    onIncrease: bookAddedToCart,
+    onDecrease: bookRemovedFromCart,
+    onDelete: allBooksRemovedFromCart,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCart);

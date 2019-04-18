@@ -19,21 +19,30 @@ const booksError = (error) => {
     }
 }
 
-const fetchBooks = (bookstoreService, dispatch) => () => {//внутренняя функция предназначена для компонента, внешняя для работа mapDispatch
+export const fetchBooks = (bookstoreService, dispatch) => () => {//внутренняя функция предназначена для компонента, внешняя для работа mapDispatch
     dispatch(booksRequested());
     bookstoreService.getBooks()
         .then((data) => dispatch(booksLoaded(data)))
         .catch((error) => dispatch(booksError(error)))
 }
 
-const bookAddedToCart = (bookId) => {
+export const bookAddedToCart = (bookId) => {
     return {
         type: 'BOOK_ADDED_TO_CART',
         payload: bookId
     }
 };
 
-export {
-  fetchBooks,
-  bookAddedToCart
+export const allBooksRemovedFromCart = (bookId) => {
+    return {
+        type: 'ALL_BOOKS_REMOVED_FROM_CART',
+        payload: bookId
+    }
+};
+
+export const bookRemovedFromCart = (bookId) => {
+    return {
+        type: 'BOOK_REMOVED_FROM_CART',
+        payload: bookId
+    }
 };
